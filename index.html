@@ -1,0 +1,68 @@
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Python Bot Quick Start</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; max-width:720px; margin:40px auto; padding:12px; color:#111; }
+  h1 { margin-bottom:6px; }
+  p { margin-top:6px; margin-bottom:16px; line-height:1.45; }
+  .btn { display:inline-block; padding:10px 16px; margin-right:10px; font-size:16px; cursor:pointer; border-radius:8px; border:1px solid #ccc; background:#fff; }
+  .btn.primary { background:#0b84ff; color:white; border-color:#0b6fe6; }
+  .panel { background:#f7f7f9; border:1px solid #eee; padding:12px; border-radius:8px; margin-top:20px; }
+  pre { background:#fff; padding:10px; border-radius:6px; overflow:auto; border:1px solid #eee; }
+  code { font-family: monospace; }
+</style>
+</head>
+<body>
+
+<h1>Python Discord Bot — Quick Start</h1>
+
+<p>This page helps you run your Python bot safely. The bot token is <strong>never shared in a browser</strong>. Keep it in <code>.env</code> or your environment variables.</p>
+
+<div>
+  <button class="btn primary" id="inviteBtn">Invite Your Bot</button>
+  <button class="btn" id="howBtn">How to Run Bot</button>
+</div>
+
+<div id="info" class="panel" style="display:none;"></div>
+
+<script>
+document.getElementById('inviteBtn').onclick = () => {
+  const CLIENT_ID = prompt("Enter your bot application Client ID:");
+  if (!CLIENT_ID) return;
+  const PERMISSIONS = 2048; // SEND_MESSAGES
+  const SCOPES = 'bot%20applications.commands';
+  const url = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&permissions=${PERMISSIONS}&scope=${SCOPES}`;
+  window.open(url, "_blank");
+};
+
+document.getElementById('howBtn').onclick = () => {
+  const panel = document.getElementById('info');
+  panel.style.display = 'block';
+  panel.innerHTML = `
+<h3>Running Your Bot Locally</h3>
+<ol>
+<li>Make sure you have <code>Python 3.10+</code> installed.</li>
+<li>Create a virtual environment (optional but recommended):<br>
+<pre>python -m venv venv
+# Windows: .\\venv\\Scripts\\activate
+# Mac/Linux: source venv/bin/activate</pre>
+</li>
+<li>Install dependencies:<br>
+<pre>pip install -U "discord.py"</pre>
+</li>
+<li>Create a <code>.env</code> file in the project folder and add your bot token:<br>
+<pre>DISCORD_TOKEN=YOUR_BOT_TOKEN_HERE</pre>
+</li>
+<li>Run the bot:<br>
+<pre>python bot.py</pre>
+</li>
+<li>Use the slash commands in any server your bot is invited to (e.g., <code>/sendms</code> or <code>/changenick</code>).</li>
+</ol>
+<p>⚠️ Keep your token secret. Never paste it in a webpage or share it publicly.</p>
+  `;
+};
+</script>
+
+</body>
+</html>
